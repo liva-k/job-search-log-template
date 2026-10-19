@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum JobSource {
+  LINKEDIN
+  WELCOME_TO_THE_JUNGLE
+  JACK_AND_JILL
+  OTHER
+}
+
+enum ApplicationStage {
+  SAVED
+  RESEARCHING
+  APPLYING
+  APPLIED
+  INTERVIEWING
+  OFFER
+  REJECTED
+  ARCHIVED
+}
+
+model Company {
+  id                String    @id @default(cuid())
+  name              String    @unique
+  website           String?
+  industry          String?
+  sizeEstimate      String?
+  fundingStage      String?
+  research          String?
+  researchUpdatedAt DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  jobs              Job[]
+}
+
+model Job {
+  id            String    @id @default(cuid())
+  title         String
+  url           String    @unique
+  source        JobSource @default(OTHER)
+  location      String?
+  remote        Boolean   @default(false)
+  salaryMin     Int?
+  salaryMax     Int?
+  description   String?
+  postedAt      DateTime?
+  savedAt       DateTime  @default(now())
+  matchScore    Int?
+  matchRationale String?
+  companyId     String?
+  company       Company?  @relation(fields: [companyId], references: [id])
+  application   Application?
+}
+
+model Application {
+  id                String            @id @default(cuid())
+  jobId             String            @unique
+  job               Job               @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  stage             ApplicationStage  @default(SAVED)
+  notes             String?
+  interviewPrep     String?
+  appliedAt         DateTime?
+  followUpAt        DateTime?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  cvVersions        CvVersion[]
+}
+
+model CvVersion {
+  id            String      @id @default(cuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  label         String
+  content       String
+  atsScore      Int?
+  atsReport     String?
+  createdAt     DateTime    @default(now())
+}
+
+model Profile {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  location    String?
+  headline    String?
+  summary     String?
+  skills      String?
+  experience  String?
+  mustHaves   String?
+  salaryMin   Int?
+  salaryMax   Int?
+  updatedAt   DateTime @updatedAt
+}

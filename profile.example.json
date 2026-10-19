@@ -1,0 +1,12 @@
+{
+  "name": "Alex Example",
+  "email": "alex@example.com",
+  "location": "Manchester, UK",
+  "headline": "Senior Product Designer",
+  "summary": "Two or three sentences in your own voice: what you do, the kind of products you've worked on, and how you work.",
+  "skills": ["Product discovery", "Design systems", "UX research", "Prototyping"],
+  "experience": "Senior Product Designer, Company A (what they do) — Jan 2024–Present\n- Outcome-led bullet with a number, e.g. lifted checkout conversion 30% to 47%\n- Another bullet\n\nProduct Designer, Company B — Jun 2021–Jan 2024\n- Bullet\n\nEducation: Degree, University (years)",
+  "mustHaves": "Senior level, hybrid or remote, B2B or B2B2C product, real ownership from discovery to delivery",
+  "salaryMin": 60000,
+  "salaryMax": 80000
+}
