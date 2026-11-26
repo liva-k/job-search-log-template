@@ -85,10 +85,11 @@ Source of truth for the job search project and the scheduled search. Last update
 | Factor | Weight |
 |---|---|
 | Role and level fit (title, ownership, scope) | 25% |
-| Salary (stated, or a reasoned estimate) | 20% |
+| Salary (stated, or a reasoned estimate): [preferred amount]+ scores highest, [floor] to [acceptable] acceptable, below [floor] lowest | 20% |
 | Domain fit ([your preferred domains] score highest) | 20% |
 | Skills overlap ([your core skills]) | 20% |
-| Company stage ([preference] highest) | 15% |
+| Company stage ([preference] highest) | 10% |
+| Working pattern ([preferred pattern] highest; others acceptable but lower) | 5% |
 
 Only report roles scoring **[65] or higher**. If nothing qualifies, say so. Do not pad the list.
 

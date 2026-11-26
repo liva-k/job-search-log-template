@@ -14,6 +14,7 @@ import {
   type DragEndEvent,
   type DragStartEvent,
 } from "@dnd-kit/core";
+import { SearchInput, matchesQuery } from "@/components/search-input";
 import { updateApplicationStage } from "@/lib/actions";
 import { STAGE_LABELS, STAGE_ORDER } from "@/lib/format";
 import type { ApplicationStage } from "@/generated/prisma";
@@ -46,10 +47,24 @@ export function TrackerBoard({ items: initialItems }: { items: TrackerItem[] }) 
     })
   );
 
+  const [query, setQuery] = useState("");
+  const visibleItems = items.filter((item) =>
+    matchesQuery(query, item.job.title, item.job.company?.name)
+  );
+
   const byStage = STAGE_ORDER.map((stage) => ({
     stage,
-    items: items.filter((item) => item.stage === stage),
+    items: visibleItems.filter((item) => item.stage === stage),
   }));
+
+  const search = (
+    <SearchInput
+      value={query}
+      onChange={setQuery}
+      placeholder="Search by company or role"
+      className="shrink-0"
+    />
+  );
 
   const activeItem = items.find((item) => item.id === activeId) ?? null;
 
@@ -90,30 +105,36 @@ export function TrackerBoard({ items: initialItems }: { items: TrackerItem[] }) 
 
   if (!mounted) {
     return (
-      <div className="flex min-h-0 flex-1 gap-4 overflow-x-auto pb-4">
-        {byStage.map(({ stage, items: stageItems }) => (
-          <StaticColumn key={stage} stage={stage} items={stageItems} />
-        ))}
-      </div>
+      <>
+        {search}
+        <div className="flex min-h-0 flex-1 gap-4 overflow-x-auto pb-4">
+          {byStage.map(({ stage, items: stageItems }) => (
+            <StaticColumn key={stage} stage={stage} items={stageItems} />
+          ))}
+        </div>
+      </>
     );
   }
 
   return (
-    <DndContext
-      id="tracker-board"
-      sensors={sensors}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-    >
-      <div className="flex min-h-0 flex-1 gap-4 overflow-x-auto pb-4">
-        {byStage.map(({ stage, items: stageItems }) => (
-          <Column key={stage} stage={stage} items={stageItems} />
-        ))}
-      </div>
-      <DragOverlay>
-        {activeItem ? <CardBody item={activeItem} dragging /> : null}
-      </DragOverlay>
-    </DndContext>
+    <>
+      {search}
+      <DndContext
+        id="tracker-board"
+        sensors={sensors}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        <div className="flex min-h-0 flex-1 gap-4 overflow-x-auto pb-4">
+          {byStage.map(({ stage, items: stageItems }) => (
+            <Column key={stage} stage={stage} items={stageItems} />
+          ))}
+        </div>
+        <DragOverlay>
+          {activeItem ? <CardBody item={activeItem} dragging /> : null}
+        </DragOverlay>
+      </DndContext>
+    </>
   );
 }
 

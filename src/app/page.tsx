@@ -1,11 +1,11 @@
 import { db } from "@/lib/db";
 import { AddJobDialog } from "@/components/add-job-dialog";
-import { JobCard } from "@/components/job-card";
+import { JobList } from "@/components/job-list";
 
 export default async function JobsPage() {
   const jobs = await db.job.findMany({
     include: { company: true, application: true },
-    orderBy: { savedAt: "desc" },
+    orderBy: [{ matchScore: { sort: "desc", nulls: "last" } }, { savedAt: "desc" }],
   });
 
   return (
@@ -25,11 +25,7 @@ export default async function JobsPage() {
           No jobs saved yet. Add one to get started.
         </div>
       ) : (
-        <div className="space-y-4">
-          {jobs.map((job) => (
-            <JobCard key={job.id} job={job} />
-          ))}
-        </div>
+        <JobList jobs={jobs} />
       )}
     </div>
   );

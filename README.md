@@ -6,9 +6,9 @@ Everything runs on your own machine. Your data stays in a local SQLite file and 
 
 ## What's in it
 
-- **Jobs**: save postings (paste the URL and description). Each job gets a match score (0 to 100) with a rationale, watch-outs and the angle to take in your CV.
-- **Tracker**: a Kanban board from Saved through Researching, Applying, Applied, Interviewing to Offer or Rejected.
-- **Companies**: created from your saved jobs. One click gets a research briefing covering funding, size, culture, recent news and red flags.
+- **Jobs**: save postings (paste the URL and description), sorted by best match first, with search by company or role and a status filter. Each job gets a match score (0 to 100) with a rationale, watch-outs and the angle to take in your CV.
+- **Tracker**: a searchable Kanban board from Saved through Researching, Applying, Applied, Interviewing to Offer or Rejected.
+- **Companies**: created from your saved jobs, searchable by company or role. One click gets a research briefing covering funding, size, culture, recent news and red flags.
 - **CV versions**: tailored CV drafts per application, with an ATS check.
 - **Interview prep**: likely questions and talking points based on the job and your experience.
 - **Profile**: your background, which every AI feature uses.

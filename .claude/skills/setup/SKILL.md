@@ -54,7 +54,8 @@ Then probe the vague CV bullets. Good follow-ups:
 
 - Target titles and level
 - Location and working pattern (in-office, hybrid, remote, and any time zone limits)
-- Salary: hard floor, target range, currency. Remind them that a stated floor makes scoring much sharper.
+- Salary: hard floor, the range they'd accept, the amount they'd prefer, and currency. Remind them that a stated floor makes scoring much sharper.
+- Preferred working pattern, and which others are acceptable but less attractive
 - Contract types they will and won't accept
 - Company stage and size preference
 - Industries they want, industries where their experience transfers, and any to avoid
